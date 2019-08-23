@@ -2,8 +2,11 @@ from bs4 import BeautifulSoup as bs
 from urllib.request import urlopen as uReq
 from item import Item
 
+# number of pages to look into
+page_num = "1"
+
 # url = "https://www.kijiji.ca/b-cell-phone/gta-greater-toronto-area/c760l1700272?uli=true&ad=offering&price=50__500"
-url = searcher.url_generator("iphone X 64gb", "50", "200")
+url = searcher.url_generator("iphone x", "600", "800", page_num)
 
 # opening up connection, grabbing the page
 content = uReq(url)
