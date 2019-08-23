@@ -2,7 +2,8 @@ from bs4 import BeautifulSoup as bs
 from urllib.request import urlopen as uReq
 from item import Item
 
-url = "https://www.kijiji.ca/b-cell-phone/gta-greater-toronto-area/c760l1700272?uli=true&ad=offering&price=50__500"
+# url = "https://www.kijiji.ca/b-cell-phone/gta-greater-toronto-area/c760l1700272?uli=true&ad=offering&price=50__500"
+url = searcher.url_generator("iphone X 64gb", "50", "200")
 
 # opening up connection, grabbing the page
 content = uReq(url)
@@ -57,5 +58,6 @@ for object in items:
     print(object.price)
     print(object.date)
     print("\n")
+
 
 
