@@ -4,13 +4,13 @@ Automates buying cheap items from kijiji<br>
 **Tasks**
 <ul>
 <li>
-Use Beautiful soup to scrape ads from kijiji
+  <strike>Use Beautiful soup to scrape ads from kijiji</strike>
 </li>
 <li>
-Conditional bases scraping
+  <strike>Conditional bases scraping</strike>
 </li>
 <li>
-Printer to display results
+  <strike>Printer to display results</strike>
 </li>
 <li>
 Auto message to specific ads that fits the description
