@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup as bs
 from urllib.request import urlopen as uReq
-import searcher as searcher
+from item import Item
 
 # number of pages to look into
 page_num = "1"
@@ -23,7 +23,7 @@ page_soup = bs(page_html, "html.parser")
 # print(page_soup.findAll("div", {"class": "regular-ad"}))
 containers = page_soup.findAll("div", {"class": "regular-ad"})
 
-# file to be saved in
+#file to be saved in
 
 #filename = "products.csv"
 #f = open(filename, "w")
@@ -31,19 +31,36 @@ containers = page_soup.findAll("div", {"class": "regular-ad"})
 #headers = "title, price\n"
 #f.write(headers)
 
+items = []
 for container in containers:
     # print(container.findAll("div", {"class": "price"}))
     # print(container.findAll("div", {"class": "title"}))
 
     title_container = container.findAll("div", {"class": "title"})
     price_container = container.findAll("div", {"class": "price"})
+    date_container = container.findAll("div", {"class": "location"})
 
+    date = date_container[0].span
     product_name = title_container[0].text.strip()  # stripping any white space
     price = price_container[0].text.strip()
 
-    print(product_name + price)
-    print("\n")
+    if date:
+        date = date.text.strip()
+        product = Item(product_name, price, date)
+        items.append(product)
+
+    #print(product_name + price)
+    #print("\n")
 
     #f.write(product_name.replace(",", "|") + ", " + price + "\n")
 
 #f.close()
+
+for object in items:
+    print(object.title)
+    print(object.price)
+    print(object.date)
+    print("\n")
+
+
+
