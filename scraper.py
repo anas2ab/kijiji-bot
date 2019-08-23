@@ -1,7 +1,9 @@
 from bs4 import BeautifulSoup as bs
 from urllib.request import urlopen as uReq
+import searcher as searcher
 
-url = "https://www.kijiji.ca/b-cell-phone/gta-greater-toronto-area/c760l1700272?uli=true&ad=offering&price=50__500"
+# url = "https://www.kijiji.ca/b-cell-phone/gta-greater-toronto-area/c760l1700272?uli=true&ad=offering&price=50__500"
+url = searcher.url_generator("iphone X 64gb", "50", "200")
 
 # opening up connection, grabbing the page
 content = uReq(url)
@@ -20,11 +22,11 @@ containers = page_soup.findAll("div", {"class": "regular-ad"})
 
 # file to be saved in
 
-filename = "products.csv"
-f = open(filename, "w")
+#filename = "products.csv"
+#f = open(filename, "w")
 
-headers = "title, price\n"
-f.write(headers)
+#headers = "title, price\n"
+#f.write(headers)
 
 for container in containers:
     # print(container.findAll("div", {"class": "price"}))
@@ -36,9 +38,9 @@ for container in containers:
     product_name = title_container[0].text.strip()  # stripping any white space
     price = price_container[0].text.strip()
 
-    # print(product_name + price)
-    # print("\n")
+    print(product_name + price)
+    print("\n")
 
-    f.write(product_name.replace(",", "|") + ", " + price + "\n")
+    #f.write(product_name.replace(",", "|") + ", " + price + "\n")
 
-f.close()
+#f.close()
