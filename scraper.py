@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup as bs
 from urllib.request import urlopen as uReq
 from item import Item
+import searcher as searcher
 
 # number of pages to look into
 page_num = "1"
