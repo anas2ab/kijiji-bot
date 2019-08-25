@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup as bs
 from urllib.request import urlopen as uReq
 from item import Item
+import searcher as searcher
 
 # number of pages to look into
 page_num = "1"
@@ -23,13 +24,13 @@ page_soup = bs(page_html, "html.parser")
 # print(page_soup.findAll("div", {"class": "regular-ad"}))
 containers = page_soup.findAll("div", {"class": "regular-ad"})
 
-#file to be saved in
+# file to be saved in
 
-#filename = "products.csv"
-#f = open(filename, "w")
+# filename = "products.csv"
+# f = open(filename, "w")
 
-#headers = "title, price\n"
-#f.write(headers)
+# headers = "title, price\n"
+# f.write(headers)
 
 items = []
 for container in containers:
@@ -39,28 +40,33 @@ for container in containers:
     title_container = container.findAll("div", {"class": "title"})
     price_container = container.findAll("div", {"class": "price"})
     date_container = container.findAll("div", {"class": "location"})
+    description_container = container.findAll("div", {"class": "description"})
 
     date = date_container[0].span
     product_name = title_container[0].text.strip()  # stripping any white space
     price = price_container[0].text.strip()
+    description = description_container[0].text.strip()
+    url = ""
+
+    for a in title_container:
+        url = "www.kijiji.ca/v-search/v-search/" + (a.a['href'])[-10:]
 
     if date:
         date = date.text.strip()
-        product = Item(product_name, price, date)
+        product = Item(product_name, price, date, description, url)
         items.append(product)
 
-    #print(product_name + price)
-    #print("\n")
+    # print(product_name + price)
+    # print("\n")
 
-    #f.write(product_name.replace(",", "|") + ", " + price + "\n")
+    # f.write(product_name.replace(",", "|") + ", " + price + "\n")
 
-#f.close()
+# f.close()
 
-for object in items:
-    print(object.title)
-    print(object.price)
-    print(object.date)
-    print("\n")
-
-
-
+# for object in items:
+    #   print(object.title)
+    #   print(object.price)
+    #   print(object.date)
+    #   print(object.description)
+    #   print(object.url)
+    #   print("\n")
