@@ -5,68 +5,78 @@ import searcher as searcher
 
 # number of pages to look into
 page_num = "1"
+age = 30
 
-# url = "https://www.kijiji.ca/b-cell-phone/gta-greater-toronto-area/c760l1700272?uli=true&ad=offering&price=50__500"
-url = searcher.url_generator("iphone x", "600", "800", page_num)
 
-# opening up connection, grabbing the page
-content = uReq(url)
+def scraper(item, min_price, max_price):
+    # url = "https://www.kijiji.ca/b-cell-phone/gta-greater-toronto-area/c760l1700272?uli=true&ad=offering&price
+    # =50__500"
 
-# puts content in a variable
-page_html = content.read()
+    url = searcher.url_generator(item, min_price,  max_price, page_num)
 
-# close the connection
-content.close()
+    # opening up connection, grabbing the page
+    content = uReq(url)
 
-# putting info in an html file
-page_soup = bs(page_html, "html.parser")
+    # puts content in a variable
+    page_html = content.read()
 
-# print(page_soup.findAll("div", {"class": "regular-ad"}))
-containers = page_soup.findAll("div", {"class": "regular-ad"})
+    # close the connection
+    content.close()
 
-# file to be saved in
+    # putting info in an html file
+    page_soup = bs(page_html, "html.parser")
 
-# filename = "products.csv"
-# f = open(filename, "w")
+    # print(page_soup.findAll("div", {"class": "regular-ad"}))
+    containers = page_soup.findAll("div", {"class": "regular-ad"})
 
-# headers = "title, price\n"
-# f.write(headers)
+    # file to be saved in
 
-items = []
-for container in containers:
-    # print(container.findAll("div", {"class": "price"}))
-    # print(container.findAll("div", {"class": "title"}))
+    # filename = "products.csv"
+    # f = open(filename, "w")
 
-    title_container = container.findAll("div", {"class": "title"})
-    price_container = container.findAll("div", {"class": "price"})
-    date_container = container.findAll("div", {"class": "location"})
-    description_container = container.findAll("div", {"class": "description"})
+    # headers = "title, price\n"
+    # f.write(headers)
 
-    date = date_container[0].span
-    product_name = title_container[0].text.strip()  # stripping any white space
-    price = price_container[0].text.strip()
-    description = description_container[0].text.strip()
-    url = ""
+    items = []
+    for container in containers:
+        # print(container.findAll("div", {"class": "price"}))
+        # print(container.findAll("div", {"class": "title"}))
 
-    for a in title_container:
-        url = "www.kijiji.ca/v-search/v-search/" + (a.a['href'])[-10:]
+        title_container = container.findAll("div", {"class": "title"})
+        price_container = container.findAll("div", {"class": "price"})
+        date_container = container.findAll("div", {"class": "location"})
+        description_container = container.findAll("div", {"class": "description"})
 
-    if date:
-        date = date.text.strip()
-        product = Item(product_name, price, date, description, url)
-        items.append(product)
+        date = date_container[0].span
+        product_name = title_container[0].text.strip()  # stripping any white space
+        price = price_container[0].text.strip()
+        description = description_container[0].text.strip()
+        url = ""
 
-    # print(product_name + price)
-    # print("\n")
+        for a in title_container:
+            url = "www.kijiji.ca/v-search/v-search/" + (a.a['href'])[-10:]
 
-    # f.write(product_name.replace(",", "|") + ", " + price + "\n")
+        if date:
+            date = date.text.strip()
+            if "minute" in date:
+                if int(''.join(filter(str.isdigit, date))) < 60:
+                    #                print(date)
+                    product = Item(product_name, price, date, description, url)
+                    items.append(product)
 
-# f.close()
+        # print(product_name + price)
+        # print("\n")
 
-# for object in items:
+        # f.write(product_name.replace(",", "|") + ", " + price + "\n")
+
+        # f.close()
+
+    # for object in items:
     #   print(object.title)
     #   print(object.price)
     #   print(object.date)
     #   print(object.description)
     #   print(object.url)
     #   print("\n")
+
+    return items
