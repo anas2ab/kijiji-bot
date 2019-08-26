@@ -19,11 +19,12 @@ html = """\
 items = scraper.scraper("iphone x", "400", "900")
 for item in items:
     html = html + """<p><b>%s</b><br>
-       %s %s ><br>
+       %s %s <br>
        <a href="%s">Ad Link</a>
     </p>""" % (item.title, item.price,item.date, "http://" + item.url)
 
 html = html + """</body></html>"""
+
 
 # Turn these into plain/html MIMEText objects
 # part1 = MIMEText(text, "plain")
