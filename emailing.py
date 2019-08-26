@@ -4,7 +4,7 @@ from email.mime.multipart import MIMEMultipart
 import scraper as scraper
 
 sender_email = input("Enter the sender email: ")
-receiver_email = "ahmed.mohid@yahoo.com"
+receiver_email = input("Enter the receiver email: ")
 password = input("enter password: ")
 
 message = MIMEMultipart("alternative")
@@ -16,15 +16,14 @@ message["To"] = receiver_email
 html = """\
 <html>
   <body>"""
-
-for item in scraper.items:
+items = scraper.scraper("iphone x", "400", "900")
+for item in items:
     html = html + """<p><b>%s</b><br>
-       %s<br>
+       %s %s ><br>
        <a href="%s">Ad Link</a>
-    </p>""" % (item.title, item.price, "http://" + item.url)
+    </p>""" % (item.title, item.price,item.date, "http://" + item.url)
 
 html = html + """</body></html>"""
-print(html)
 
 # Turn these into plain/html MIMEText objects
 # part1 = MIMEText(text, "plain")
