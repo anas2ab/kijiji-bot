@@ -16,7 +16,7 @@ Automates buying cheap items from kijiji<br>
 Auto message to specific ads that fits the description
 </li>
 <li>
-Email reminder for ads <---nodejs (look for other ways)
+<strike>Email reminder for ads</strike>
 </li>
 <li>
 Bot to run every 15 mins
