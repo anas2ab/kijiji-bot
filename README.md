@@ -1,4 +1,4 @@
-# kijiji-bot
+ # kijiji-bot
 Automates buying cheap items from kijiji<br>
 
 **Tasks**
@@ -25,3 +25,12 @@ Bot to run every 15 mins
 Create UI
 </li>
 </ul>
+
+
+**Install and Usage**
+
+`$ pip install apscheduler`
+
+install Advance Python Scheduler for Scheduling.
+
+
