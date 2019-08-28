@@ -2,17 +2,18 @@ from bs4 import BeautifulSoup as bs
 from urllib.request import urlopen as uReq
 from item import Item
 import searcher as searcher
+import gc
 
 # number of pages to look into
 page_num = "1"
 age = 30
 
 
-def scraper(item, min_price, max_price):
+def scraper(item, min_price, max_price, id_list):
     # url = "https://www.kijiji.ca/b-cell-phone/gta-greater-toronto-area/c760l1700272?uli=true&ad=offering&price
     # =50__500"
 
-    url = searcher.url_generator(item, min_price,  max_price, page_num)
+    url = searcher.url_generator(item, min_price, max_price, page_num)
 
     # opening up connection, grabbing the page
     content = uReq(url)
@@ -52,17 +53,21 @@ def scraper(item, min_price, max_price):
         price = price_container[0].text.strip()
         description = description_container[0].text.strip()
         url = ""
-
-        for a in title_container:
-            url = "www.kijiji.ca/v-search/v-search/" + (a.a['href'])[-10:]
+        ad_id = 0
 
         if date:
             date = date.text.strip()
             if "minute" in date:
                 if int(''.join(filter(str.isdigit, date))) < 60:
                     #                print(date)
-                    product = Item(product_name, price, date, description, url)
-                    items.append(product)
+                    if not ("Wanted:" in product_name):
+                        for a in title_container:
+                            ad_id = (a.a['href'])[-10:]
+                            url = "www.kijiji.ca/v-search/v-search/" + ad_id
+                            if not(ad_id in id_list):
+                                id_list.append(ad_id)
+                                product = Item(product_name, price, date, description, url)
+                                items.append(product)
 
         # print(product_name + price)
         # print("\n")
@@ -80,3 +85,6 @@ def scraper(item, min_price, max_price):
     #   print("\n")
 
     return items
+
+
+gc.collect()

@@ -1,5 +1,4 @@
 from urllib.request import urlopen as uReq
-import string
 # this url for ref only
 # https://www.kijiji.ca/b-search/b-search/iphone-x/k0c760l1700272
 

@@ -19,9 +19,18 @@ Auto message to specific ads that fits the description
 <strike>Email reminder for ads</strike>
 </li>
 <li>
-Bot to run every 15 mins
+<strike>Bot to run every 15 mins</strike>
 </li>
 <li>
-Create UI
+<strike>Create UI</strike>
 </li>
 </ul>
+
+
+**Install and Usage**
+
+`$ pip install apscheduler`
+
+install Advance Python Scheduler for Scheduling.
+
+
