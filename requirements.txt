@@ -1,0 +1,4 @@
+Flask
+wtforms
+apscheduler
+beautifulsoup4
