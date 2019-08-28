@@ -29,14 +29,15 @@ def hello():
         item = request.form['item']
         min_price = request.form['min_price']
         max_price = request.form['max_price']
-        send_email = request.form['sender_email']
-        receive_email = request.form['receiver_email']
-        password = request.form['sender_password']
+        # send_email = request.form['sender_email']
+        # receive_email = request.form['receiver_email']
+        # password = request.form['sender_password']
+        chat_id = request.form['chat_id']
         period = request.form['period']
         interval = request.form['interval']
 
         if form.validate():
-            sch.scheduler(item, min_price, max_price, send_email, receive_email, password, int(period), int(interval))
+            sch.scheduler(item, min_price, max_price, int(chat_id), int(period), int(interval))
             flash('Done ')
 
         else:
